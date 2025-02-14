@@ -1,6 +1,6 @@
-from flask import Flask, render_template_string, url_for
-from utils import load_data
-
+from flask import Flask, render_template_string, request, redirect
+from utils import load_data, load_template
+import views
 
 app = Flask(__name__)
 
@@ -22,7 +22,7 @@ RESPONSE_TEMPLATE = '''<!DOCTYPE html>
 <p>Como o Post-it, mas com outro verbo</p>
 
 <ul>
-{notes}
+{s}
 </ul>
 
 </body>
@@ -35,15 +35,23 @@ app.static_folder = 'static'
 @app.route('/')
 def index():
     notes_li = [
-        NOTE_TEMPLATE.format(title=dados['titulo'], details=dados['detalhes'])
+        load_template('components/note.html').format(title=dados['titulo'], details=dados['detalhes'])
         for dados in load_data('notes.json')
     ]
     notes = '\n'.join(notes_li)
 
-    response = RESPONSE_TEMPLATE.format(notes=notes)
+    response = load_template('index.html').format(notes=notes)
 
-    return render_template_string(response)
+    return render_template_string(views.index())
 
+@app.route('/submit', methods=['POST'])
+def submit_form():
+    titulo = request.form.get('titulo')  # Obtém o valor do campo 'titulo'
+    detalhes = request.form.get('detalhes')  # Obtém o valor do campo 'detalhes'
+
+    #apos receber as informações e submetê-las, é redirecionado para a home
+    views.submit(titulo, detalhes)
+    return redirect('/')
 
 if __name__ == '__main__':
     app.run(debug=True)
