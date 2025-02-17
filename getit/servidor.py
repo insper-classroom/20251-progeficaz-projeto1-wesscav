@@ -35,7 +35,7 @@ app.static_folder = 'static'
 @app.route('/')
 def index():
     notes_li = [
-        load_template('components/note.html').format(title=dados['titulo'], details=dados['detalhes'])
+        load_template('components/notes.html').format(title=dados['titulo'], details=dados['detalhes'])
         for dados in load_data('notes.json')
     ]
     notes = '\n'.join(notes_li)

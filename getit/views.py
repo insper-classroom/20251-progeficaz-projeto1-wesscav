@@ -3,7 +3,7 @@ import utils
 import json
 
 def index():
-    note_template = load_template('components/note.html')
+    note_template = load_template('components/notes.html')
     notes_li = [
         note_template.format(title=dados['titulo'], details=dados['detalhes'])
         for dados in load_data('notes.json')
@@ -20,3 +20,9 @@ def submit(titulo, detalhes):
     
     with open('static/data/notes.json', 'w') as file:
         json.dump(notes, file, indent=4)
+
+def apagar_post():
+    pass
+
+def editar_post():
+    pass 
