@@ -1,20 +1,27 @@
-<!-- DOCTYPE, HTML, HEAD DEVEM CONTINUAR AQUI -->
+<head>
+  <link rel="stylesheet" href="{{{{ url_for('static', filename='templates/getit.css') }}}}">
+</head>
 <body>
-    <img src="{{{{ url_for('static', filename='img/logo-getit.png') }}}}">
-    <p>Como o Post-it, mas com outro verbo</p>
-  
-    <form action="/submit" method="POST">
-      <label for="titulo">Título</label>
-      <input id="titulo" type="text" name="titulo" />
-      <label for="detalhes">Detalhes</label>
-      <input id="detalhes" name="detalhes" />
-      <input type="submit" />
-      <button>
-        
-      </button>
-    </form>
+    <div class="container">
+      <img src="{{{{ url_for('static', filename='img/logo-getit.png') }}}}">
+      <div class="frase_post">
+        <p>Como o Post-it, mas com outro verbo</p>
+      </div>
+      <div class="submit"> 
+        <form action="/submit" method="POST">
+          <label for="titulo">Título</label>
+          <input id="titulo" type="text" name="titulo" />
+          <label for="detalhes">Detalhes</label>
+          <input id="detalhes" type='text' name="detalhes" />
+          <input type="submit" />
+        </form>
+      </div> 
     <!-- O RESTO DO HTML A PARTIR DAQUI -->
+    <div class="postit">
+      <ul>
+        {notes}
+      </ul>
+    </div>
+    </div>
 
-    <ul>
-      {notes}
-    </ul>
+   
