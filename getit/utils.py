@@ -14,6 +14,9 @@ def load_template(filename):
     with open(filepath, 'r', encoding="utf-8") as file:
         return file.read()
     
+def save_data(filename, data):
+    with open(filename, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=4)
 
     # filepath = f"static/data/{filename}"
     

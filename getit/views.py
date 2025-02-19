@@ -1,29 +1,35 @@
 from utils import load_data, load_template
 import utils
 import json
+import sqlite3 as sql
 
 def index():
+    # Conectar ao banco de dados SQLite
+    con = sql.connect("db_web.db")
+    con.row_factory = sql.Row  # Retorno como dicionário
+    cur = con.cursor()
+    
+    # Buscar todas as notas da tabela "notes"
+    cur.execute("SELECT titulo, detalhes, id FROM notes")
+    notes_data = cur.fetchall()
+    con.close()  # Fechar a conexão
+
+    # Gerar o HTML das notas
     note_template = load_template('components/notes.html')
     notes_li = [
-        note_template.format(title=dados['titulo'], details=dados['detalhes'])
-        for dados in load_data('notes.json')
+        note_template.format(title=dados['titulo'], details=dados['detalhes'], id=dados['id'])
+        for dados in notes_data
     ]
-
     notes = '\n'.join(notes_li)
-
     return load_template('index.html').format(notes=notes)
 
+
 def submit(titulo, detalhes):
-    #adiciona uma nova anotação ao arquivo notes.json,
-
-    notes = load_data('notes.json')
-    notes.append({'titulo': titulo, 'detalhes': detalhes})
+    # Conectar ao banco de dados SQLite
+    con = sql.connect("db_web.db")
+    cur = con.cursor()
     
-    with open('static/data/notes.json', 'w') as file:
-        json.dump(notes, file, indent=4)
-
-def apagar_post():
-    pass
-
-def editar_post():
-    pass 
+    # Inserir a nova nota no banco de dados
+    cur.execute("INSERT INTO notes (titulo, detalhes, id) VALUES (?, ?, ?)", (titulo, detalhes, id))
+    con.commit()  # Salvar alterações
+    con.close()  # Fechar a conexão
