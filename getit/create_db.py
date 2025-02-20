@@ -11,7 +11,7 @@ cur.execute("DROP TABLE IF EXISTS users")
 
 #Create users table  in db_web database
 sql ='''CREATE TABLE "notes" (
-	"id"	INTEGER PRIMARY KEY AUTOINCREMENT,
+	"uid"	INTEGER PRIMARY KEY AUTOINCREMENT,
 	"titulo"	TEXT,
 	"detalhes"	TEXT
 )'''

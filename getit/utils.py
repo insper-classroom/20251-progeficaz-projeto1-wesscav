@@ -1,4 +1,5 @@
 import json
+from flask import render_template
 
 def load_data(filename):
     
@@ -18,16 +19,12 @@ def save_data(filename, data):
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=4)
 
-    # filepath = f"static/data/{filename}"
+def load_template_with_data(filename, data):
     
-    # #connect to SQLite
-    # con = sqlite3.connect(filepath)
-    
-    # #Create a Connection
-    # cur = con.cursor()
-    
-    # #Drop users table if already exsist.
-    # data = cursor.fetchall()
-    
-    # # Fecha a conexão
-    # conn.close()
+    filepath = f'static/templates/{filename}'
+
+    titulo = data['titulo']
+    detalhes = data['detalhes']
+    uid = data['uid']
+
+    return render_template('static/templates/edit_note.html').format(title=titulo, details=detalhes, uid=uid)

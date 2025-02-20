@@ -1,10 +1,11 @@
-<li>
-    <h3>{title}</h3>
-    <p>{details}</p>
-    <button onclick="location.href='/delete_user/{id}'">
-        X
-    </button>
-    <button>
-        Editar
-    </button>
-</li>
+<head>
+    <link rel="stylesheet" href="{{{{ url_for('static', filename='templates/components/notes.css') }}}}">
+  </head>
+<body>
+    <li class="note">
+        <h3>{title}</h3>
+        <p>{details}</p>
+        <button onclick="location.href='/delete_note/{uid}'">X</button>
+        <button onclick="location.href='/edit_note/{uid}'">Editar</button>
+    </li>
+</body>

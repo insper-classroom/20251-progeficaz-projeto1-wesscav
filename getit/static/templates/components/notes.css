@@ -1,0 +1,30 @@
+.note {
+    /* Adiciona espaçamento e estilo geral ao item da nota */
+    margin-bottom: 20px;
+    padding: 10px;
+    text-align: left;
+    
+}
+
+.note h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px; /* Espaçamento com os detalhes */
+}
+
+.note p {
+    margin: 0 0 20px 0; /* Espaçamento entre os detalhes e os botões */
+    font-size: 14px;
+    color: #555;
+}
+
+.note button {
+    margin-right: 10px; /* Espaçamento entre os botões */
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+
+}

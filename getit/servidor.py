@@ -1,17 +1,13 @@
-from flask import Flask, render_template_string, request, redirect, flash
+from flask import Flask, render_template_string, request, redirect, flash, render_template
 import sqlite3 as sql
-from utils import load_data, load_template, save_data
+from utils import load_data, load_template, save_data, load_template_with_data
 import views
 
 app = Flask(__name__)
-app.static_folder = 'static'
 
 @app.route('/')
 def index():
     return render_template_string(views.index())
-#quando a rota é /, a função de cima é chamada e chama a função views.index() que lê o arquivo
-#notes.html e mostra as notes desejadas e gera a lista notes que vai ser utilizada no index.html
-
 
 @app.route('/submit', methods=['POST'])
 def submit_form():
@@ -26,35 +22,35 @@ def submit_form():
 
     return redirect('/')
 
-@app.route("/edit_user/<int:id>", methods=['POST', 'GET'])
-def edit_user(id):
+@app.route("/edit_note/<int:uid>", methods=['POST', 'GET'])
+def edit_note(uid):
     con = sql.connect("db_web.db")
     con.row_factory = sql.Row
     cur = con.cursor()
-
     if request.method == 'POST':
         titulo = request.form['titulo']
         detalhes = request.form['detalhes']
-
-        cur.execute("UPDATE notes SET titulo=?, detalhes=? WHERE id=?", (titulo, detalhes, id))
+        uid = request.form['uid']
+        cur.execute("UPDATE notes SET titulo=?, detalhes=? WHERE uid=?", (titulo, detalhes, uid))
         con.commit()
+        con.close()
         return redirect('/')
-
-    cur.execute("SELECT * FROM notes WHERE id=?", (id,))
+    
+    # Buscar os dados da nota para edição
+    cur.execute("SELECT * FROM notes WHERE uid=?", (uid,))
     data = cur.fetchone()
     con.close()
+    # Renderizar o template e passar os dados
+    return load_template_with_data('edit_note.html', data)
+    
 
-    return redirect('/')
-
-@app.route("/delete_user/<int:id>", methods=['GET'])
-def delete_user(id):
+@app.route("/delete_note/<int:uid>", methods=['GET'])
+def delete_note(uid):
     con = sql.connect("db_web.db")
     cur = con.cursor()
-    cur.execute("DELETE FROM notes WHERE id=?", (id,))
+    cur.execute("DELETE FROM notes WHERE uid=?", (uid,))
     con.commit()
     con.close()
-    
-    # Redirecionar para a página inicial após a exclusão
     return redirect('/')
 if __name__ == '__main__':
     app.run(debug=True)
