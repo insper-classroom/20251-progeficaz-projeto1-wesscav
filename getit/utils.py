@@ -21,10 +21,10 @@ def save_data(filename, data):
 
 def load_template_with_data(filename, data):
     
-    filepath = f'static/templates/{filename}'
+    filepath = "static/templates/edit_note.html"
 
     titulo = data['titulo']
     detalhes = data['detalhes']
     uid = data['uid']
 
-    return render_template('static/templates/edit_note.html').format(title=titulo, details=detalhes, uid=uid)
+    return render_template(filepath).format(title=titulo, details=detalhes, uid=uid)

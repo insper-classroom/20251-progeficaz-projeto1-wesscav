@@ -1,25 +1,25 @@
-{% extends 'index.html' %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='templates/edit_note.css') }}">
+  <link rel="stylesheet" href="{{{{ url_for('static', filename='templates/edit_note.css') }}}}">
   <title>Editar Nota</title>
 </head>
 <body>
 <div class="container">
-  <img src="{{ url_for('static', filename='img/logo-getit.png') }}">
+  <img src="{{{{ url_for('static', filename='img/logo-getit.png') }}}}">
   <div class="frase_post">
     <p>Edite sua Nota</p>
   </div>
 
   <div class="submit">
     <!-- Formulário para editar a nota -->
-    <form action="/edit_note/{{ uid }}" method="POST">
+    <form action="/edit_note/{uid}" method="POST">
       <label for="titulo">Título</label>
-      <input id="titulo" type="text" name="titulo" value='{{ title }}'/>
+      <input id="titulo" type="text" name="titulo" value='{title}'/>
       <label for="detalhes">Detalhes</label>
-      <input id="detalhes" type="text" name="detalhes" value='{{ details }}'/>
+      <input id="detalhes" type="text" name="detalhes" value='{details}'/>
       <input type="submit" value="Salvar Alterações" />
     </form>
   </div>

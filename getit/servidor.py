@@ -24,25 +24,11 @@ def submit_form():
 
 @app.route("/edit_note/<int:uid>", methods=['POST', 'GET'])
 def edit_note(uid):
-    con = sql.connect("db_web.db")
-    con.row_factory = sql.Row
-    cur = con.cursor()
-    if request.method == 'POST':
-        titulo = request.form['titulo']
-        detalhes = request.form['detalhes']
-        uid = request.form['uid']
-        cur.execute("UPDATE notes SET titulo=?, detalhes=? WHERE uid=?", (titulo, detalhes, uid))
-        con.commit()
-        con.close()
+    if request.method == 'GET':
+        return render_template_string(views.edit_note(uid))
+    else:
+        views.edit_note(uid)
         return redirect('/')
-    
-    # Buscar os dados da nota para edição
-    cur.execute("SELECT * FROM notes WHERE uid=?", (uid,))
-    data = cur.fetchone()
-    con.close()
-    # Renderizar o template e passar os dados
-    return load_template_with_data('edit_note.html', data)
-    
 
 @app.route("/delete_note/<int:uid>", methods=['GET'])
 def delete_note(uid):

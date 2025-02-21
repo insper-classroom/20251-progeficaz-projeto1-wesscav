@@ -3,7 +3,10 @@
     margin-bottom: 20px;
     padding: 10px;
     text-align: left;
-    
+    background-color: #ffeb3b;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, background-color 0.3s;
+    border-radius: 5px;
 }
 
 .note h3 {
@@ -28,3 +31,8 @@
     cursor: pointer;
 
 }
+
+.note:hover {
+    transform: scale(1.05);
+    background-color: #fff176;
+  }

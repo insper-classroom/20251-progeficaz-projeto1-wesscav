@@ -72,15 +72,14 @@ body {
 }
 
 .postit {
-  background-color: #ffeb3b;
-  width: 200px;
+  
+  /* width: 200px; */
   min-height: 150px;
   padding: 10px;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+  
+  
   text-align: left;
   font-family: Arial, sans-serif;
-  transition: transform 0.2s, background-color 0.3s;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
@@ -97,7 +96,3 @@ body {
   color: #333;
 }
 
-.postit:hover {
-  transform: scale(1.05);
-  background-color: #fff176;
-}
